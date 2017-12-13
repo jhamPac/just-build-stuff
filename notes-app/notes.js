@@ -1,3 +1,7 @@
+const add = (x, y) => {
+  return x + y
+}
+
 module.exports = {
-  age: 33
+  add: add
 }
