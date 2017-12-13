@@ -2,6 +2,7 @@ console.log('Starting application')
 
 const fs = require('fs')
 const os = require('os')
+const notes = require('./notes.js')
 
 let user = os.userInfo()
 
