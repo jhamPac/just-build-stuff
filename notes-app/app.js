@@ -5,8 +5,8 @@ const yargs = require('yargs')
 
 const notesApi = require('./notes.js')
 
-let command = process.argv[2]
-let { title, body } = yargs.argv
+let { _: command, title, body} = yargs.argv
+command = command.shift()
 
 if (command === 'add') {
   notesApi.addNote(title, body)
