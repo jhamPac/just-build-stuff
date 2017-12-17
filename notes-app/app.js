@@ -1,5 +1,6 @@
 const fs = require('fs')
 const _ = require('lodash')
+const chalk = require('chalk')
 
 const notes = require('./notes.js')
 
@@ -15,5 +16,5 @@ if (command === 'add') {
 } else if (command === 'remove') {
   console.log('remove what')
 } else {
-  console.warn(`Command: ${command} is unrecognizable`)
+  console.log(chalk.red(`Command: ${command} is unrecognizable`))
 }
