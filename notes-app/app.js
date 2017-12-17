@@ -3,13 +3,13 @@ const _ = require('lodash')
 const chalk = require('chalk')
 const yargs = require('yargs')
 
-const notes = require('./notes.js')
+const notesApi = require('./notes.js')
 
-let command = (process.argv[2] === undefined) ? null :  process.argv[2].toLowerCase()
-console.log(`Command is: ${command}`)
+let command = process.argv[2]
+let { title, body } = yargs.argv
 
 if (command === 'add') {
-  console.log('adding to list')
+  notesApi.addNote(title, body)
 } else if (command === 'list') {
   console.log('displaying list')
 } else if (command === 'read') {
