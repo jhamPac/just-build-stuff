@@ -3,7 +3,7 @@ const morgan = require('morgan')
 const chalk = require('chalk')
 const db = require('./database.js')
 const puppeteer = require('puppeteer')
-const axios = require('axios')
+var instagramAPI = require('instagram-node').instagram()
 const app = express()
 
 // config
@@ -12,16 +12,32 @@ require('dotenv').config()
 app.use(morgan('dev'))
 db.connectDB(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`, { useMongoClient: true })
 
+instagramAPI.use({
+  client_id: process.env.CLIENT_ID,
+  client_secret: process.env.CLIENT_SECRET
+})
+
 app.get('/', (request, response) => {
   response.send('Server is working')
 })
 
-app.get('/auth', (request, response) => {
-  response.send(`Your token is ${request.query.code}`)
+app.get('/login', (request, response) => {
+  response.redirect(
+    instagramAPI.get_authorization_url(process.env.REDIRECT_URI, { scope: ['basic'] })
+  )
 })
 
-app.get('/login', (request, response) => {
-  response.redirect(`${process.env.GRAM_AUTH_URL}`)
+app.get('/auth', (request, response) => {
+  let { code } = request.query
+  instagramAPI.authorize_user(
+    code,
+    process.env.REDIRECT_URI,
+    (error, result) => {
+      if (error) response.send(error)
+      console.log(result)
+      process.exit(1)
+    }
+  )
 })
 
 app.listen(3000)
