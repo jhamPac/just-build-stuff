@@ -4,8 +4,11 @@ const chalk = require('chalk')
 const db = require('./database.js')
 const app = express()
 
+// config
+require('dotenv').config()
+
 app.use(morgan('dev'))
-db.connectDB('mongodb://localhost:27017/paparazziDB', { useMongoClient: true })
+db.connectDB(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`, { useMongoClient: true })
 
 app.get('/', (request, response) => {
   response.send('Server is working')
