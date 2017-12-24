@@ -17,6 +17,7 @@ router.get('/', (request, response) => {
       if (error) response.send(error)
 
       let { access_token, user } = result
+      
       let data = {
         id: user.id,
         username: user.username,
