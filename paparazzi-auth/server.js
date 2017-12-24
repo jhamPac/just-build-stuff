@@ -9,7 +9,7 @@ const instagramAPI = require('instagram-node').instagram()
 require('dotenv').config()
 
 // database
-const db = require('./database')
+const db = require('./database/connect')
 db.connectDB(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`, { useMongoClient: true })
 
 // routes
