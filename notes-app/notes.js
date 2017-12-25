@@ -16,8 +16,15 @@ const addNote = (title, body) => {
 }
 
 _getNotes = (fileName) => {
-  let stringData = fs.readFileSync(fileName)
-  let notes = JSON.parse(stringData)
+  let notes;
+
+  try {
+    let stringData = fs.readFileSync(fileName)
+    notes = JSON.parse(stringData)
+  } catch (e) {
+    console.log(chalk.red(`Oops no such file called: ${fileName}\nCreating now...`))
+    notes = []
+  }
   return notes
 }
 
