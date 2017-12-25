@@ -2,16 +2,21 @@ const fs = require('fs')
 const chalk = require('chalk')
 
 const addNote = (title, body) => {
-  let note = {
+  let newNote = {
     title,
     body
   }
 
-  let noteString = fs.readFileSync('notes-data.json')
-  let notes = JSON.parse(noteString)
-  let updatedNotes = notes.concat(note)
-  
+  let notes = _getNotes('notes-data.json')
+  let updatedNotes = notes.concat(newNote)
+
   fs.writeFileSync('notes-data.json', JSON.stringify(updatedNotes))
+}
+
+_getNotes = (fileName) => {
+  let stringData = fs.readFileSync(fileName)
+  let notes = JSON.parse(stringData)
+  return notes
 }
 
 module.exports = {
