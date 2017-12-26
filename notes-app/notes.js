@@ -21,6 +21,18 @@ const addNote = (title, body) => {
   }
 }
 
+const findNote = (title) => {
+  let notes = _getNotes(NOTES_FILE_NAME)
+  let result = notes.find((note) => note.title === title)
+
+  if (result === undefined) {
+    console.log(chalk.red(`Error [${title}] does not exist, please try again`))
+  } else {
+    console.log(result)
+  }
+  process.exit(1)
+}
+
 const removeNote = (title) => {
   let notes = _getNotes(NOTES_FILE_NAME)
   let exist = _doesExist(title)
@@ -65,5 +77,6 @@ _saveNotes = (notes) => {
 
 module.exports = {
   addNote,
+  findNote,
   removeNote
 }

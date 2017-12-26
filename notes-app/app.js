@@ -13,7 +13,7 @@ if (command === 'add') {
 } else if (command === 'list') {
   console.log('displaying list')
 } else if (command === 'read') {
-  console.log('read what')
+  notesApi.findNote(title)
 } else if (command === 'remove') {
   notesApi.removeNote(title)
 } else {
