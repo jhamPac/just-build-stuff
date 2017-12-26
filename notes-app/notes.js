@@ -17,8 +17,7 @@ const addNote = (title, body) => {
     process.exit(1)
   } else {
     let updatedNotes = notes.concat(newNote)
-    fs.writeFileSync(NOTES_FILE_NAME, JSON.stringify(updatedNotes))
-    console.log(chalk.blue(`Note saved successfully`))
+    _saveNotes(updatedNotes)
   }
 }
 
@@ -43,6 +42,11 @@ _checkForDuplicate = (title) => {
     return true
   }
   return false
+}
+
+_saveNotes = (notes) => {
+  fs.writeFileSync(NOTES_FILE_NAME, JSON.stringify(notes))
+  console.log(chalk.blue(`Note saved successfully`))
 }
 
 module.exports = {
