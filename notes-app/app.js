@@ -8,14 +8,19 @@ const notesApi = require('./notes.js')
 let { _: command, title, body} = yargs.argv
 command = command.shift()
 
-if (command === 'add') {
-  notesApi.addNote(title, body)
-} else if (command === 'list') {
-  notesApi.listNotes()
-} else if (command === 'read') {
-  notesApi.findNote(title)
-} else if (command === 'remove') {
-  notesApi.removeNote(title)
-} else {
-  console.log(chalk.red(`Command: ${command} is unrecognizable`))
+switch (command) {
+  case 'add':
+    notesApi.addNote(title, body)
+    break
+  case 'list':
+    notesApi.listNotes()
+    break
+  case 'read':
+    notesApi.findNote(title)
+    break
+  case 'remove':
+    notesApi.removeNote(title)
+    break
+  default:
+    console.log(chalk.red(`Command: ${command} is unrecognizable`))
 }
