@@ -33,6 +33,20 @@ const findNote = (title) => {
   process.exit(1)
 }
 
+const listNotes = () => {
+  let notes = _getNotes(NOTES_FILE_NAME)
+
+  notes.forEach((note) => {
+    console.log(chalk.blue(
+      `
+      Title: ${note.title}
+      Body: ${note.body}
+      ------------------>>`
+    ))
+  })
+  process.exit(1)
+}
+
 const removeNote = (title) => {
   let notes = _getNotes(NOTES_FILE_NAME)
   let exist = _doesExist(title)
@@ -78,5 +92,6 @@ _saveNotes = (notes) => {
 module.exports = {
   addNote,
   findNote,
+  listNotes,
   removeNote
 }

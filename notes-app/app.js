@@ -11,7 +11,7 @@ command = command.shift()
 if (command === 'add') {
   notesApi.addNote(title, body)
 } else if (command === 'list') {
-  console.log('displaying list')
+  notesApi.listNotes()
 } else if (command === 'read') {
   notesApi.findNote(title)
 } else if (command === 'remove') {
