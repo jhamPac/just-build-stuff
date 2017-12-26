@@ -15,7 +15,7 @@ if (command === 'add') {
 } else if (command === 'read') {
   console.log('read what')
 } else if (command === 'remove') {
-  console.log('remove what')
+  notesApi.removeNote(title)
 } else {
   console.log(chalk.red(`Command: ${command} is unrecognizable`))
 }

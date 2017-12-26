@@ -10,7 +10,7 @@ const addNote = (title, body) => {
   }
 
   let notes = _getNotes(NOTES_FILE_NAME)
-  let isDuplicate = _checkForDuplicate(title)
+  let isDuplicate = _doesExist(title)
 
   if (isDuplicate) {
     console.log(chalk.red(`Sorry the title ${title} is a duplicate please choose another title`))
@@ -19,6 +19,20 @@ const addNote = (title, body) => {
     let updatedNotes = notes.concat(newNote)
     _saveNotes(updatedNotes)
   }
+}
+
+const removeNote = (title) => {
+  let notes = _getNotes(NOTES_FILE_NAME)
+  let exist = _doesExist(title)
+
+  if (exist) {
+    let results = notes.filter((note) => note.title !== title)
+    console.log(chalk.blue(`Removed [${title}] from notes, now saving`))
+    _saveNotes(results)
+  } else {
+    console.log(chalk.red(`Sorry [${title}] does not exist, please check the spelling of your title`))
+  }
+  process.exit(1)
 }
 
 _getNotes = (fileName) => {
@@ -34,7 +48,7 @@ _getNotes = (fileName) => {
   return notes
 }
 
-_checkForDuplicate = (title) => {
+_doesExist = (title) => {
   let notes = _getNotes(NOTES_FILE_NAME)
   let result = notes.filter((note) => note.title === title)
 
@@ -50,5 +64,6 @@ _saveNotes = (notes) => {
 }
 
 module.exports = {
-  addNote
+  addNote,
+  removeNote
 }
