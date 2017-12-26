@@ -10,9 +10,16 @@ const addNote = (title, body) => {
   }
 
   let notes = _getNotes(NOTES_FILE_NAME)
-  let updatedNotes = notes.concat(newNote)
+  let isDuplicate = _checkForDuplicate(title)
 
-  fs.writeFileSync(NOTES_FILE_NAME, JSON.stringify(updatedNotes))
+  if (isDuplicate) {
+    console.log(chalk.red(`Sorry the title ${title} is a duplicate please choose another title`))
+    process.exit(1)
+  } else {
+    let updatedNotes = notes.concat(newNote)
+    fs.writeFileSync(NOTES_FILE_NAME, JSON.stringify(updatedNotes))
+    console.log(chalk.blue(`Note saved successfully`))
+  }
 }
 
 _getNotes = (fileName) => {
@@ -26,6 +33,16 @@ _getNotes = (fileName) => {
     notes = []
   }
   return notes
+}
+
+_checkForDuplicate = (title) => {
+  let notes = _getNotes(NOTES_FILE_NAME)
+  let result = notes.filter((note) => note.title === title)
+
+  if (result.length > 0) {
+    return true
+  }
+  return false
 }
 
 module.exports = {
