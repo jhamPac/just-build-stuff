@@ -8,7 +8,26 @@ require('dotenv').config()
 
 // database
 const db = require('./database/connect')
-db.connectDB()
 
-let accessToken = Promise.all([db.getAccessToken()]).then((r) => console.log(r))
-console.log(accessToken)
+const fireApp = async () => {
+  db.connectDB()
+
+  let userID = await db.getUserID()
+  let accessToken = await db.getAccessToken()
+
+  instagramAPI.use({
+    access_token: accessToken
+  })
+
+  instagramAPI.user_media_recent(
+    userID,
+    (err, result, pagination, remaining, limit) => {
+      if (err) {
+        console.log(chalk.red(`Error ${err}`))
+        process.exit(1)
+      }
+      console.log(result)
+    })
+}
+
+fireApp()

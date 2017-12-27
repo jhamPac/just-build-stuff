@@ -24,9 +24,14 @@ const getAccessToken = async (username = 'sknyft') => {
   return token
 }
 
+const getUserID = async (username = 'sknyft') => {
+  let igUser = await _getUser(username)
+  let id = igUser.id
+  return id
+}
+
 const _getUser = (username) => {
   return User.find({'username': 'sknyft'})
-    .exec()
     .then((user) => user.shift())
     .catch((error) => {
       console.log(chalk.red(`Error ${error}`))
@@ -36,5 +41,6 @@ const _getUser = (username) => {
 
 module.exports = {
   connectDB,
+  getUserID,
   getAccessToken
 }
