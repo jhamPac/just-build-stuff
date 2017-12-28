@@ -5,6 +5,24 @@ const yargs = require('yargs')
 
 const notesApi = require('./notes.js')
 
+// config yargs
+yargs
+.command(
+  'add',
+  'Adds a new note',
+  {
+    title: {
+      describe: 'The title of the note',
+      demand: true
+    },
+    body: {
+      describe: 'The body of the note',
+      demand: true
+    }
+  }
+)
+.help()
+
 let { _: command, title, body} = yargs.argv
 command = command.shift()
 
