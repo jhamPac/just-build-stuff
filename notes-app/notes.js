@@ -35,7 +35,7 @@ const findNote = (title) => {
 
 const listNotes = () => {
   let notes = _getNotes(NOTES_FILE_NAME)
-
+  console.log(chalk.blue(`Printing (${notes.length}) notes`))
   notes.forEach((note) => {
     console.log(chalk.blue(
       `
